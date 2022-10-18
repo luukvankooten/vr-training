@@ -1,0 +1,31 @@
+{
+  "name": "vr-training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel public/index.html --https"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luukvankooten/vr-training.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luukvankooten/vr-training/issues"
+  },
+  "homepage": "https://github.com/luukvankooten/vr-training#readme",
+  "devDependencies": {
+    "@babylonjs/core": "^5.28.0",
+    "@babylonjs/gui": "^5.28.0",
+    "@babylonjs/inspector": "^5.28.0",
+    "@types/node": "^18.11.0",
+    "assert": "^2.0.0",
+    "parcel": "^2.7.0",
+    "process": "^0.11.10",
+    "random": "^3.0.6"
+  }
+}
