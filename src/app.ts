@@ -1,12 +1,13 @@
 
 import random from 'random';
-import { Color3, Engine, EventState, FreeCamera, MeshBuilder, Plane, Scene, StandardMaterial, Vector3 } from "@babylonjs/core";
+import { Color3, Engine, EventState, FreeCamera, Material, Mesh, MeshBuilder, Plane, Scene, StandardMaterial, TransformNode, Vector3 } from "@babylonjs/core";
 
-import { GUI3DManager, CylinderPanel, HolographicButton, TextBlock, Vector3WithInfo } from "@babylonjs/gui";
+import { GUI3DManager, CylinderPanel, HolographicButton, TextBlock, Vector3WithInfo, HolographicBackplate, StackPanel3D, SpherePanel, PlanePanel } from "@babylonjs/gui";
 
 import "@babylonjs/inspector";
 import "@babylonjs/core/Debug/debugLayer";
-import { ContentDisplay3D } from '@babylonjs/gui/3D/controls/contentDisplay3D';
+import ZPanel from './ZPanel';
+import { features } from 'process';
 
 const buttons = [];
 
@@ -24,38 +25,34 @@ function createOnClickObserver(i: number) {
 function createUI(scene: Scene) {
   const manager = new GUI3DManager(scene);
 
-  const panel = new CylinderPanel("screen");
-
-  const material = new StandardMaterial("color", scene);
-  material.alpha = 1;
-  material.diffuseColor = Color3.Black();
-
-  console.log(panel.node)
-
+  const panel = new PlanePanel("buttonsPanel");
   manager.addControl(panel);
-  panel.margin = 0;
 
+  panel.position = new Vector3(0, 0, 18)
+
+  panel.margin = 0;
   panel.rows = 9;
   panel.columns = 16;
-
-  panel.radius = 20;
-  panel.blockLayout = true;
-
-
 
   const nButtons = Array.from(new Array(144), (_, i: number) => {
     const button = new HolographicButton(`button-${i}`);
 
     panel.addControl(button);
+    button.position = Vector3.Zero();
 
-    if (i !== 2) {
+    if (i !== 0) {
       button.isVisible = false
     }
 
+    button.pointerEnterAnimation = () => {};
+
     button.onPointerDownObservable.add(createOnClickObserver(i));
 
+    button.backMaterial.alpha = 0
+    button.frontMaterial.alpha = 0
+    // button.plateMaterial.alpha = 0
     const text = new TextBlock(`button-text-${i}`, random.integer(1, 9).toString());
-    text.fontSize = 42;
+    text.fontSize = 48;
     text.color = 'white';
     //TODO: make random
     button.content = text;
@@ -63,15 +60,20 @@ function createUI(scene: Scene) {
     return button;
   });
 
-  buttons.push(...nButtons)
+  buttons.push(...nButtons);
 
-  console.log(buttons)
+  const holder = new PlanePanel();
+  manager.addControl(holder);
+  holder.linkToTransformNode(panel.node);
+  holder.position = Vector3.Zero();
+  holder.rows = 1;
+  holder.columns = 1;
+  holder.scaling = new Vector3(16.25, 9.25);
+  holder.position = new Vector3(0, 0, 0.05);
 
-  panel.blockLayout = false;
+  const background = new HolographicBackplate();
+  holder.addControl(background);
 
-  const plane = new ContentDisplay3D();
-
-  panel.addControl(plane)
 
   return manager;
 }
@@ -79,11 +81,7 @@ function createUI(scene: Scene) {
 function createScene(canvas: HTMLCanvasElement, engine: Engine) {
   const scene = new Scene(engine);
 
-  const camera = new FreeCamera("mainView", Vector3.Zero());
-
-  camera.attachControl(canvas, true);
-
-  scene.debugLayer.show({ embedMode: true });
+  scene.createDefaultCameraOrLight(true, true, true);
 
   createUI(scene);
 
