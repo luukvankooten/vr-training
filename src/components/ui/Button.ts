@@ -1,7 +1,8 @@
-import { EventState, Vector3 } from "@babylonjs/core";
+import { Color3, Color4, EventState, Vector3 } from "@babylonjs/core";
 import { HolographicButton, TextBlock, Vector3WithInfo } from "@babylonjs/gui";
 import random from "random";
 import { createElement } from "./use3Dmanager";
+import useBackPlate from "./useBackPlate";
 
 const buttons: HolographicButton[] = [];
 
@@ -9,7 +10,17 @@ const timerTable: number[] = [];
 
 let lastTime = 0;
 
+let current = 0;
+
+const bg = [
+  Color3.Black(),
+  Color3.Green(),
+  Color3.Gray(),
+]
+
 function createOnClickObserver(i: number) {
+  const backPlate = useBackPlate();
+
   return (data: Vector3WithInfo, state: EventState) => {
     const click = (new Date()).getTime();
 
@@ -23,8 +34,10 @@ function createOnClickObserver(i: number) {
 
     buttons[Math.floor(Math.random() * 144) + 1].isVisible = true;
 
-    if (timerTable.length === 9) {
+    if (timerTable.length % 9 === 0) {
       console.table(timerTable);
+      backPlate.material.baseColor = Color4.FromColor3(bg[current]);
+      ++current;
     }
   }
 }

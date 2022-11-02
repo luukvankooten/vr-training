@@ -7,7 +7,7 @@ const createScene = (() => {
   const scene = new Scene(engine);
   scene.createDefaultCameraOrLight(true, true, true);
 
-  scene.debugLayer.show();
+  // scene.debugLayer.show();
 
   engine.runRenderLoop(() => {
     scene.render();
