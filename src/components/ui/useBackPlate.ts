@@ -1,6 +1,5 @@
 import { HolographicBackplate } from "@babylonjs/gui";
 
-
 const createBackPlate = (() => {
   const backPlate = new HolographicBackplate();
 

@@ -8,7 +8,7 @@ const Holder = (panel: PlanePanel) => {
 
   return createElement(PlanePanel, {
     name: 'background',
-    position: new Vector3(0, 0, 0.05),
+    position: new Vector3(0, 0, 0.01),
     rows: 1,
     columns: 1,
     scaling: new Vector3(16.25, 9.25),

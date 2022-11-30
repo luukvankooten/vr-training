@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel public/index.html --https --open",
+    "dev": "parcel public/index.html --https --open --host 0.0.0.0",
     "build": "parcel build public/index.html"
   },
   "repository": {
@@ -23,7 +23,7 @@
     "@babylonjs/core": "^5.28.0",
     "@babylonjs/gui": "^5.28.0",
     "@babylonjs/inspector": "^5.28.0",
-    "@types/node": "^18.11.0",
+    "@types/node": "^18.11.9",
     "assert": "^2.0.0",
     "parcel": "^2.7.0",
     "process": "^0.11.10",

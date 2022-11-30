@@ -1,52 +1,17 @@
-import { Color3, Color4, EventState, Vector3 } from "@babylonjs/core";
+import { EventState, Vector3 } from "@babylonjs/core";
 import { HolographicButton, TextBlock, Vector3WithInfo } from "@babylonjs/gui";
 import random from "random";
 import { createElement } from "./use3Dmanager";
-import useBackPlate from "./useBackPlate";
 
-const buttons: HolographicButton[] = [];
-
-const timerTable: number[] = [];
-
-let lastTime = 0;
-
-let current = 0;
-
-const bg = [
-  Color3.Black(),
-  Color3.Green(),
-  Color3.Gray(),
-]
-
-function createOnClickObserver(i: number) {
-  const backPlate = useBackPlate();
-
-  return (data: Vector3WithInfo, state: EventState) => {
-    const click = (new Date()).getTime();
-
-    timerTable.push((new Date(click - lastTime).getMilliseconds()));
-
-    lastTime = click;
-
-    const target = state.target as HolographicButton;
-
-    target.isVisible = false;
-
-    buttons[Math.floor(Math.random() * 144) + 1].isVisible = true;
-
-    if (timerTable.length % 9 === 0) {
-      console.table(timerTable);
-      backPlate.material.baseColor = Color4.FromColor3(bg[current]);
-      ++current;
-    }
-  }
-}
+type Algorithme = (buttonArray: ButtonArray) => number;
 
 const Text = (index: number) => createElement(TextBlock, {
   name: `button-text-${index}`,
   text: random.integer(1, 9).toString(),
-  fontSize: 48,
+  fontSize: 74,
   color: 'white',
+  fontFamily: 'arial',
+  fontWeight: 'bold',
 });
 
 const Button = (index: number) => createElement(HolographicButton, {
@@ -56,12 +21,59 @@ const Button = (index: number) => createElement(HolographicButton, {
   isVisible: index === 0,
   builder(control) {
     control.pointerEnterAnimation = () => {};
-    control.onPointerDownObservable.add(createOnClickObserver(index))
-    control.backMaterial.alpha = 0
-    control.frontMaterial.alpha = 0
-    buttons.push(control);
+    control.backMaterial.alpha = 0;
+    control.frontMaterial.alpha = 0;
   }
 });
 
 
-export default Button;
+export default class ButtonArray {
+  private _buttons: HolographicButton[] = [];
+
+  private _active: number = 0;
+
+  private _algo: Algorithme;
+
+  constructor(length: number, algo: Algorithme) {
+    this._buttons = Array.from(new Array(length), (_, i: number) => Button(i));
+    this._algo = algo;
+  }
+
+  get buttons() {
+    return this._buttons;
+  }
+
+  get active() {
+    return this._buttons.at(this._active);
+  }
+
+  get algo() {
+    return this._algo;
+  }
+
+  next() {
+    const current = this.active;
+    
+    if (current === undefined) {
+      throw "No current button"
+    }
+
+    current.isVisible = false;
+
+    console.log(this);
+
+    //change the active one;
+    this._active = this.algo(this);
+
+    const next = this.active;
+
+    if (next === undefined) {
+      throw "No active"
+    }
+
+    next.isVisible = true; 
+
+    return next;
+  }
+}
+

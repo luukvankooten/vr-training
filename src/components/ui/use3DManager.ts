@@ -9,9 +9,9 @@ const create3DManager = (() => {
   return () => manager
 })()
 
-type NonFunctionPropertyNames<T extends Control3D | Control> = Partial<{ [K in keyof T]: T[K] extends Function ? never : T[K] } & { childeren?: T extends Container3D ? Control3D[] : never } & { builder: (control: T) => void }>;
+type ControlNonFunctionPropertyNames<T extends Control3D | Control> = Partial<{ [K in keyof T]: T[K] extends Function ? never : T[K] } & { childeren?: T extends Container3D ? Control3D[] : never } & { builder: (control: T) => void }>;
 
-export function createElement<T extends Control3D | Control>(control: new (name?: string) => T, props: NonFunctionPropertyNames<T>) {
+export function createElement<T extends Control3D | Control>(control: new (name?: string) => T, props: ControlNonFunctionPropertyNames<T>) {
   const cntrl = useBuilder(new control(props.name));
 
   if (cntrl instanceof Container3D) {
@@ -19,6 +19,11 @@ export function createElement<T extends Control3D | Control>(control: new (name?
   }
 
   for (const [key, value] of Object.entries(props)) {
+    // if (typeof value === 'object') {
+    //   Object.assign(cntrl[key], value);
+    //   continue;
+    // }
+
     cntrl[key] = value;
   }
 
