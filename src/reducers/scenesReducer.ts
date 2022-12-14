@@ -1,5 +1,5 @@
 import { Scene } from "@babylonjs/core";
-import ScenesActions, { addActiveScene, addScene, ADD_ACTIVE, ADD_SCENE, setActiveScene, SET_ACTIVE } from "../actions/scenesActions";
+import ScenesActions, { addScene, ADD_ACTIVE, ADD_SCENE, setActiveScene, SET_ACTIVE } from "../actions/scenesActions";
 
 export interface ScenesState {
   active: number,

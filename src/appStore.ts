@@ -1,7 +1,7 @@
-import createRootReducer from './reducer';
+import createRootReducer from './reducers';
 import createStore from './store';
 
-const store = createStore(createRootReducer());
+const store = createStore(createRootReducer(), []);
 
 export default store;
 

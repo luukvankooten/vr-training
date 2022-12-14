@@ -12,14 +12,12 @@ type AddActiveScene = { action: typeof ADD_ACTIVE, payload: Scene };
 
 type ScenesActions = | AddSceneAction | SetActiveScene | AddActiveScene;
 
-
 export function addActiveScene(scene: Scene): AddActiveScene {
   return {
     action: ADD_ACTIVE,
     payload: scene,
   }
 }
-
 
 export function setActiveScene(index: number): SetActiveScene {
   return {
@@ -34,6 +32,5 @@ export function addScene(scene: Scene): AddSceneAction {
     payload: scene
   }
 }
-
 
 export default ScenesActions;

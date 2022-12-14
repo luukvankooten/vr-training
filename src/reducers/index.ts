@@ -1,9 +1,11 @@
 import combineReducers from "../store/combineReducers";
-import scenesReducer from "./scenes";
+import guiReducer from "./guiReducer";
+import scenesReducer from "./scenesReducer";
 
 export default function createCombineReducer() {
   const reducers = {
-    scenes: scenesReducer
+    scenes: scenesReducer,
+    gui: guiReducer
   }
   
   return combineReducers(reducers);
