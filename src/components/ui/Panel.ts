@@ -4,7 +4,7 @@ import { createElement } from "./use3Dmanager";
 
 const Panel = (buttons: HolographicButton[]) => createElement(PlanePanel, {
   name: 'panel',
-  position: new Vector3(0, 0, 1.5),
+  position: new Vector3(0, 0, 20),
   margin: 0,
   rows: 9,
   columns: 16,

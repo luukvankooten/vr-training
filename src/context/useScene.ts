@@ -1,30 +1,32 @@
-import { PointerEventTypes, Scene } from "@babylonjs/core";
+import { Scene } from "@babylonjs/core";
 import useEngine from "./useEngine";
 
-const createScene = (() => {
+export function createScene(): Scene {
   const engine = useEngine();
 
   const scene = new Scene(engine);
-  scene.createDefaultXRExperienceAsync();
+
+  scene.createDefaultXRExperienceAsync();  
+
   scene.createDefaultCameraOrLight(true, true, true);
-
-  // if (process.env.APP_DEBUG_LAYER || false) {
-  //   scene.debugLayer.show();
-  // }
-  //
-
-  scene.onPointerObservable.add((data, event) => {
-    if (data.type === PointerEventTypes.POINTERDOWN) {
-      console.log('clicked');
-    }
-  })
+  
+  if (process.env.APP_DEBUG_LAYER || false) {
+    scene.debugLayer.show();
+  }
+  
   engine.runRenderLoop(() => {
     scene.render();
   });
 
-  return (): Scene => scene
-})();
-
-export default function useScene(): Scene {
-  return createScene();
+  return scene;
 }
+
+export default function useActiveScene() {
+  const store = useStore();
+
+  return getActiveScene(store.getState());
+}
+
+// export default function useScene(): Scene {
+//   // return createScene();
+// }

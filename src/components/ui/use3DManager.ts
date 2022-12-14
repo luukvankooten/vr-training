@@ -1,14 +1,4 @@
 import { Container3D, Control, Control3D, GUI3DManager } from "@babylonjs/gui";
-import useScene from "../../context/useScene";
-
-const create3DManager = (() => {
-  const scene = useScene();
-
-  const manager = new GUI3DManager(scene);
-
-  return () => manager
-})()
-
 type ControlNonFunctionPropertyNames<T extends Control3D | Control> = Partial<{ [K in keyof T]: T[K] extends Function ? never : T[K] } & { childeren?: T extends Container3D ? Control3D[] : never } & { builder: (control: T) => void }>;
 
 export function createElement<T extends Control3D | Control>(control: new (name?: string) => T, props: ControlNonFunctionPropertyNames<T>) {

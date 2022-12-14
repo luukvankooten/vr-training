@@ -30,16 +30,21 @@ const Button = (index: number) => createElement(HolographicButton, {
 export default class ButtonArray {
   private _buttons: HolographicButton[] = [];
 
+  private _length: number;
+
   private _active: number = 0;
 
   private _algo: Algorithme;
 
   constructor(length: number, algo: Algorithme) {
-    this._buttons = Array.from(new Array(length), (_, i: number) => Button(i));
     this._algo = algo;
+    this._length = length;
   }
 
   get buttons() {
+    if (this._buttons.length === 0) {
+      this._buttons = Array.from(new Array(this._length), (_, i: number) => Button(i))
+    }
     return this._buttons;
   }
 

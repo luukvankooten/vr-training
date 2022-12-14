@@ -3,8 +3,29 @@ import "@babylonjs/core/Debug/debugLayer";
 
 import Screen from './components/ui/Screen';
 
+import store from './appStore';
+import { addActiveScene } from "./actions/scenesActions";
+import { createScene } from "./context/useScene";
+
 function app() {
-  Screen();
+  // console.log(store.getState());
+
+
+  store.subscribe((s) => {
+    console.log(s);
+  })
+
+  const sceneAction = addActiveScene(createScene());
+
+  console.log(store.getState());
+
+  console.log(sceneAction);
+
+  store.dispatch(sceneAction);
+
+  console.log(store.getState());
+
+  // Screen(144)  
 }
 
-app();
+document.addEventListener('DOMContentLoaded', app, false);
