@@ -1,11 +1,12 @@
 import Holder from "./Holder";
 import Panel from "./Panel";
 import ButtonArray from "./Button";
-import useActiveScene from "../../context/useScene";
 import { PointerEventTypes } from "@babylonjs/core";
+import { useSelector } from "../../context/useSelector";
+import { getActiveScene } from "../../selectors/scenesSelector";
 
 const Screen = (lenght: number) => {
-  // const scene = useScene();
+  const scene = useSelector(getActiveScene);
   const btns = new ButtonArray(lenght, () => Math.floor(Math.random() * lenght) + 1)
   const panel = Panel(btns.buttons);
 

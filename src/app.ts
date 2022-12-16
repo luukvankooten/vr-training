@@ -1,31 +1,44 @@
-import "@babylonjs/inspector";
 import "@babylonjs/core/Debug/debugLayer";
+import "@babylonjs/inspector";
 
-import Screen from './components/ui/Screen';
+import Screen from "./components/ui/Screen";
 
-import store from './appStore';
 import { addActiveScene } from "./actions/scenesActions";
+import store, { RootState } from './appStore';
+import useEngine from "./context/useEngine";
 import { createScene } from "./context/useScene";
+import { getActiveScene } from "./selectors/scenesSelector";
+import { useSelector } from "./context/useSelector";
 
 function app() {
-  // console.log(store.getState());
-
-
-  store.subscribe((s) => {
-    console.log(s);
-  })
+  // const engine = useEngine();
 
   const sceneAction = addActiveScene(createScene());
 
-  console.log(store.getState());
+  console.log(store.dispatch(sceneAction));
 
-  console.log(sceneAction);
+  store.subscribe(console.log);
 
-  store.dispatch(sceneAction);
+  // engine.runRenderLoop(() => {
+  //   const state = store.getState(); //Snapshot
 
-  console.log(store.getState());
+  //   if (state.scenes.active === -1) {
+  //     return;
+  //   }
 
-  // Screen(144)  
+  //   const scene = getActiveScene(state);
+
+  //   scene.render();
+
+  //   scene.onBeforeRenderObservable.addOnce(() => {
+  //     console.log(state)
+  //     Screen(144);
+  //   });
+  // });
 }
+
+// function render() {
+//   Screen(144)
+// }
 
 document.addEventListener('DOMContentLoaded', app, false);

@@ -13,20 +13,6 @@ export function createScene(): Scene {
   if (process.env.APP_DEBUG_LAYER || false) {
     scene.debugLayer.show();
   }
-  
-  engine.runRenderLoop(() => {
-    scene.render();
-  });
 
   return scene;
 }
-
-export default function useActiveScene() {
-  const store = useStore();
-
-  return getActiveScene(store.getState());
-}
-
-// export default function useScene(): Scene {
-//   // return createScene();
-// }

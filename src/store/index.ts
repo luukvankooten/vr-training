@@ -3,7 +3,6 @@ import subsriber, { SubscribeFunc } from "./subscriber";
 import dispatcher, { DispatchFunc, Reducer } from "./dispatch";
 import { Middleware } from "./middleware";
 
-
 export type Store<T> = {
   subscribe: SubscribeFunc<T>,
   dispatch: DispatchFunc,

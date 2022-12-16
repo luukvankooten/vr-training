@@ -6,13 +6,13 @@ import { RootState } from "../appStore";
 import { Middleware } from "../store/middleware";
 
 const scenesMiddleware: Middleware<RootState, Actions['action']> = (store) => (next) => (action) => {
-  if (action.action === ADD_ACTIVE) {
-    return next(
-      addGui3DManager(new GUI3DManager(action.payload))
-    );
-  }
+  // if (action.action === ADD_ACTIVE) {
+  //   next(
+  //     addGui3DManager(new GUI3DManager(action.payload))
+  //   );
+  // }
 
-  return action;
+  return next(action);
 }
 
 

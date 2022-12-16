@@ -1,4 +1,7 @@
-import { Container3D, Control, Control3D, GUI3DManager } from "@babylonjs/gui";
+import { Container3D, Control, Control3D } from "@babylonjs/gui";
+import { get3DManager } from "../../selectors/guiSelector";
+import { useSelector } from "../../context/useSelector";
+
 type ControlNonFunctionPropertyNames<T extends Control3D | Control> = Partial<{ [K in keyof T]: T[K] extends Function ? never : T[K] } & { childeren?: T extends Container3D ? Control3D[] : never } & { builder: (control: T) => void }>;
 
 export function createElement<T extends Control3D | Control>(control: new (name?: string) => T, props: ControlNonFunctionPropertyNames<T>) {
@@ -35,7 +38,7 @@ export function useBuilder<T extends Control3D | Control>(control: T) {
 }
 
 export function use3DManager() {
-  const manager = create3DManager();
+  const manager = useSelector(get3DManager);
 
   return manager;
 }
