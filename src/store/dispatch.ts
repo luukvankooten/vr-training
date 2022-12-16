@@ -8,7 +8,7 @@ export type DispatchFunc = <A extends string>(payload: Action<A>) => Action<A>;
 
 export default function dispatch<T, R extends T>(state: T, rootReducer: Reducer<T, any, R>, listeners: Listener<T>[]) {
   return <A extends string>(payload: Action<A>): Action<A> => {
-    new Promise(resolve => {
+    new Promise((resolve) => {
       const newState = Object.freeze(rootReducer(state, payload));
 
       Promise.all(listeners.map(async (l) => l(newState))).then(resolve);

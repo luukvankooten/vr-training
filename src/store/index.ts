@@ -11,7 +11,7 @@ export type Store<T> = {
 }
 
 export default function createStore<T>(reducer: Reducer<T, any, T>, middleware?: Middleware<T, any>): Store<T> {
-  const intialState = Object.freeze(reducer(undefined as T, { action: '@@INITIAL', payload: {} }));
+  const intialState = Object.freeze(reducer(null as T, { action: '@@INITIAL', payload: {} }));
 
   const [subscribe, listeners] = subsriber<typeof intialState>();
 

@@ -4,7 +4,7 @@ import applyMiddleware, { Middleware } from './store/middleware';
 
 
 const logger = (store) => (next) => (action) => {
-  console.log(action)
+  console.log(action);
   return action;
 }
 

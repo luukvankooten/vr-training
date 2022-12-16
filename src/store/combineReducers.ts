@@ -12,9 +12,11 @@ export default function combineReducers<T extends {}, R extends T>(reducers: Red
     const entries = Object.entries<Reducer<any, any, any>>(reducers);
 
     for (const [key, value] of entries) {
-      const oldState = Object.assign(newState[key] ?? {}, {});
-      debugger;
-      newState[key] = { ...oldState, ...value(key, payload) }
+      const keyState = newState[key];
+
+      const reduced = value(keyState, payload);
+
+      newState[key] = { ...keyState, ...reduced }
     }
 
     return newState as R;
