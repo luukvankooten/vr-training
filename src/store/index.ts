@@ -5,7 +5,7 @@ import { Middleware } from "./middleware";
 
 
 export type Store<T> = {
-  subscribe: SubscribeFunc<T>
+  subscribe: SubscribeFunc<T>,
   dispatch: DispatchFunc,
   getState: GetStateFunc<T>
 }

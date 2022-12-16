@@ -1,15 +1,12 @@
+import scenesMiddleware from './middlewares/scenesMiddleware';
 import createRootReducer from './reducers';
 import createStore from './store';
-import applyMiddleware, { Middleware } from './store/middleware';
+import applyMiddleware from './store/middleware';
 
+const rootReducer = createRootReducer();
 
-const logger = (store) => (next) => (action) => {
-  console.log(action);
-  return action;
-}
-
-const store = createStore(createRootReducer(), applyMiddleware(logger));
+const store = createStore(rootReducer, applyMiddleware(scenesMiddleware));
 
 export default store;
 
-export type RootState = ReturnType<typeof store['getState']>;
+export type RootState = ReturnType<typeof rootReducer>;
