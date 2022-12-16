@@ -1,10 +1,12 @@
-import subsribe from "./subscriber";
+import { SubscribeFunc } from "./subscriber";
 
-export default function getState<T>(state: T, subscriber: ReturnType<typeof subsribe<T>>[0]) {
+export type GetStateFunc<T> = () => Readonly<T>
+
+export default function getState<T>(state: T, subscriber: SubscribeFunc<T>): GetStateFunc<T> {
   let newState: Readonly<T> = Object.freeze(state);
 
   subscriber((s) => {
-    newState = Object.freeze(s);
+    newState = s;
   });
 
   return () => newState

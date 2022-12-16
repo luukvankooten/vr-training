@@ -6,16 +6,17 @@ type Reducers<T extends Object> = {
 
 export default function combineReducers<T extends {}, R extends T>(reducers: Reducers<T>): Reducer<T, any, R> {
   return (state: T, payload: Action<any>): R => {
-    const newState = { ...state } as R;
+    
+    let newState = state === undefined ? {} : { ...state };
 
     const entries = Object.entries<Reducer<any, any, any>>(reducers);
 
     for (const [key, value] of entries) {
-      const oldState = Object.assign(state[key], {});
-
+      const oldState = Object.assign(newState[key] ?? {}, {});
+      debugger;
       newState[key] = { ...oldState, ...value(key, payload) }
     }
 
-    return newState;
+    return newState as R;
   }
 }

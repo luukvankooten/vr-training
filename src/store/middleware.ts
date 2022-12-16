@@ -1,19 +1,43 @@
-import { Action, Reducer } from "./dispatch";
+import { Store } from ".";
+import { Action, DispatchFunc } from "./dispatch";
 
-export type Middleware<T> = (next: Middleware<Readonly<T>>, action: Action<any>, state: Readonly<T>) => Middleware<T>
+// type Storage = ReturnType<typeof createStore>
 
 
-function reduce<T>(s: T, action: Action<any>) {
 
+export type Middleware<T, A extends string> = (store: Store<T>) => (next: DispatchFunc) => (action: Action<A>) => Action<A> | void
+
+function loop<T>(middlewares: Middleware<T, any>[], stage: <T, R>(thing: T) => R) {
+  middlewares.forEach(stage);
 }
 
-export default function middleware<T>(middlewares: Middleware<T>[], rootReducer: Reducer<T, any, T>): Reducer<T, any, T> {
-  return (state, payload) => {
-    middlewares.reduce(async (previos, current) => {
+export default function applyMiddleware<T>(...middlewares: Middleware<T, any>[]): Middleware<T, any> {
+  return (store) => (next) => {
+    const apply = middlewares.map((middleware) => middleware(store)(next));
 
-    });
+    const itter = apply.values();
 
-    return rootReducer(state, payload);
+    const nextAction = (payload: Action<any>): Action<any> | void => {
+      if (payload === undefined) {
+        return;
+      }
+
+      const callNext = itter.next().value;
+
+      if (callNext === undefined) {
+        return payload;
+      }
+
+      const newPayload = callNext(payload);
+
+
+      if (newPayload === undefined) {
+        return;
+      }
+
+      return nextAction(newPayload);
+    }
+
+    return nextAction
   }
-   
 }
