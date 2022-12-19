@@ -1,6 +1,6 @@
 import { Vector3 } from "@babylonjs/core";
 import { HolographicButton, PlanePanel } from "@babylonjs/gui";
-import { createElement } from "./use3Dmanager";
+import { createElement } from "./useGuiManager";
 
 const Panel = (buttons: HolographicButton[]) => createElement(PlanePanel, {
   name: 'panel',

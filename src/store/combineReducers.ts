@@ -5,19 +5,21 @@ type Reducers<T extends Object> = {
 }
 
 export default function combineReducers<T extends {}, R extends T>(reducers: Reducers<T>): Reducer<T, any, R> {
-  return (state: T, payload: Action<any>): R => {
+  return (state: T, payload: Action): R => {
     
-    let newState = state === undefined ? {} : { ...state };
+    const newState: T = { ...state };
 
-    const entries = Object.entries<Reducer<any, any, any>>(reducers);
+    Object.entries(reducers).forEach((entry) => {
+      const key = entry[0] as keyof T;
+      const value = entry[1] as Reducer<any, any, any>;
 
-    for (const [key, value] of entries) {
-      const keyState = newState[key];
+      const keyState = newState[key]
 
       const reduced = value(keyState, payload);
 
-      newState[key] = { ...keyState, ...reduced }
-    }
+      newState[key] = reduced;
+
+    });
 
     return newState as R;
   }

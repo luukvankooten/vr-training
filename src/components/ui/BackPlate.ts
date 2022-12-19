@@ -1,6 +1,5 @@
-import { Material } from "@babylonjs/core";
 import { HolographicBackplate } from "@babylonjs/gui";
-import { createElement } from "./use3Dmanager";
+import { createElement } from "./useGuiManager";
 
 export default function BackPlate() {
   return createElement(HolographicBackplate, {

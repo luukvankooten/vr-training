@@ -9,15 +9,42 @@ import useEngine from "./context/useEngine";
 import { createScene } from "./context/useScene";
 import { getActiveScene } from "./selectors/scenesSelector";
 import { useSelector } from "./context/useSelector";
+import { addGui3DManager } from "./actions/guiActions";
 
 function app() {
   // const engine = useEngine();
+
+  // store.subscribe(s => {
+
+  //   debugger
+  //   try {
+  //     const active = getActiveScene(s);
+
+  //     console.log(s);
+
+  //     if (s.gui.gui3DManager === undefined) {
+  //       store.dispatch(addGui3DManager(active));  
+  //     }
+      
+  //   } catch (e) {
+  //     debugger;
+  //     console.error(e);
+  //   }
+
+  //   console.log(s);
+  // });
+
+  store.subscribe(s => {
+    console.log(s);
+  })
+
 
   const sceneAction = addActiveScene(createScene());
 
   console.log(store.dispatch(sceneAction));
 
-  store.subscribe(console.log);
+  console.log('hello')
+
 
   // engine.runRenderLoop(() => {
   //   const state = store.getState(); //Snapshot

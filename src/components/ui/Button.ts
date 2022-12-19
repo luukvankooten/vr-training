@@ -1,7 +1,7 @@
-import { EventState, Vector3 } from "@babylonjs/core";
-import { HolographicButton, TextBlock, Vector3WithInfo } from "@babylonjs/gui";
+import { Vector3 } from "@babylonjs/core";
+import { HolographicButton, TextBlock } from "@babylonjs/gui";
 import random from "random";
-import { createElement } from "./use3Dmanager";
+import { createElement } from "./useGuiManager";
 
 type Algorithme = (buttonArray: ButtonArray) => number;
 

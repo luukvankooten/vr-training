@@ -1,8 +1,6 @@
 export type Listener<T> = (state: Readonly<T>) => void;
 
-
 export type SubscribeFunc<T> = (listener: Listener<T>) => void; 
-
 
 export default function subsriber<T>(): [SubscribeFunc<T>, Listener<T>[]] {
   const listeners: Listener<T>[] = [];

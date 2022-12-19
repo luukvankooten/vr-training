@@ -2,34 +2,29 @@ import { Store } from ".";
 import { Action, DispatchFunc } from "./dispatch";
 
 
-export type NextFunc = (next: DispatchFunc) => DispatchFunc
+export type NextFunc<A extends Action> = (next: DispatchFunc<A>) => DispatchFunc<A>
 
+export type Middleware<T, A extends Action> = (store: Store<T, A>) => NextFunc<A>
 
-export type Middleware<T, A extends string> = (store: Store<T>) => NextFunc
+function end<A extends Action>(next: DispatchFunc<A>): DispatchFunc<A> {
+  return (payload) => next(payload);
+};
 
-export default function applyMiddleware<T>(...middlewares: Middleware<T, any>[]): Middleware<T, any> {
-  return (store) => (next) => {
-    const itter = middlewares.map((middleware) => middleware(store)).values();
+function rootMiddleware<A extends Action>(dispatchers: NextFunc<A>[]): NextFunc<A> {
+  return (next: DispatchFunc<A>) => {
+    const clone = [...dispatchers];
 
-    const nextAction = (payload: Action<any>): Action<any> => {
-      const currentDispatcher: NextFunc = itter.next().value;
-      const nextDispatcher: NextFunc = itter.next().value;
+    const currentDispatch = clone.shift()
 
-      if (currentDispatcher === undefined) {
-        return next(payload);
-      }
-
-      const calling = callNext()
-
-      if () {
-
-      }
-
-      const newPayload = callNext(payload);
-
-      return nextAction(newPayload);
+    if (currentDispatch === undefined) {
+      return end(next)
     }
 
-    return nextAction
+    return rootMiddleware(clone)(currentDispatch(next))
   }
 }
+
+export default function applyMiddleware<T, A extends Action>(...middlewares: Middleware<T, A>[]): Middleware<T, A> {
+  return (store) => rootMiddleware(middlewares.map(m => m(store)));
+}
+
