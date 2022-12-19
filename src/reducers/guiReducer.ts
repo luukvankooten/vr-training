@@ -12,7 +12,6 @@ const initialState: GUIState = {
 export default function guiReducer(state: GUIState = initialState, action: GuiActions): GUIState {
   switch (action.action) {
     case ADD_GUI_3D_MANAGER:
-      debugger;
       return {
         gui3DManager: action.payload
       };

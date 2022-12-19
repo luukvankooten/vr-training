@@ -18,7 +18,7 @@ export default function dispatch<T, R extends T>(getState: GetStateFunc<T>, root
   return <A extends Action<any>>(payload: A): A => {
     const newState = Object.freeze(rootReducer(getState(), payload));
 
-    listeners.forEach((l) => l(newState));
+    listeners.forEach(async (l) => l(newState));
 
     return payload;
   }

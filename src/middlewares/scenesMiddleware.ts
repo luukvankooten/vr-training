@@ -5,11 +5,13 @@ import { RootState } from "../appStore";
 import { Middleware } from "../store/middleware";
 
 const scenesMiddleware: Middleware<RootState, Actions> = (store) => (next) => (action) => {
+  let first = next(action)
+
   if (action.action === ADD_ACTIVE) {
     store.dispatch(addGui3DManager(action.payload));
   }
 
-  return next(action);
+  return first;
 }
 
 

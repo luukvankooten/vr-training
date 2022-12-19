@@ -7,65 +7,36 @@ import { addActiveScene } from "./actions/scenesActions";
 import store, { RootState } from './appStore';
 import useEngine from "./context/useEngine";
 import { createScene } from "./context/useScene";
-import { getActiveScene } from "./selectors/scenesSelector";
-import { useSelector } from "./context/useSelector";
-import { addGui3DManager } from "./actions/guiActions";
+
 
 function app() {
-  // const engine = useEngine();
+  const engine = useEngine();
+  let scene = createScene();
 
-  // store.subscribe(s => {
+  scene.onBeforeRenderObservable.addOnce(() => {
+    const sceneAction = addActiveScene(scene);
 
-  //   debugger
-  //   try {
-  //     const active = getActiveScene(s);
+    store.dispatch(sceneAction);
+  });
 
-  //     console.log(s);
+  let subscriber = (s: RootState) => {
+    if (s.gui.gui3DManager === undefined) {
+      return;
+    }
 
-  //     if (s.gui.gui3DManager === undefined) {
-  //       store.dispatch(addGui3DManager(active));  
-  //     }
-      
-  //   } catch (e) {
-  //     debugger;
-  //     console.error(e);
-  //   }
+    scene.onBeforeRenderObservable.addOnce(() => {
+      Screen(144);
+    });
 
-  //   console.log(s);
-  // });
+    //Remove the subscriber by adding
+    store.subscribe(subscriber);
+  };
 
-  store.subscribe(s => {
-    console.log(s);
-  })
-
-
-  const sceneAction = addActiveScene(createScene());
-
-  console.log(store.dispatch(sceneAction));
-
-  console.log('hello')
-
-
-  // engine.runRenderLoop(() => {
-  //   const state = store.getState(); //Snapshot
-
-  //   if (state.scenes.active === -1) {
-  //     return;
-  //   }
-
-  //   const scene = getActiveScene(state);
-
-  //   scene.render();
-
-  //   scene.onBeforeRenderObservable.addOnce(() => {
-  //     console.log(state)
-  //     Screen(144);
-  //   });
-  // });
+  store.subscribe(subscriber);
+  
+  engine.runRenderLoop(() => {
+    scene.render();
+  });
 }
 
-// function render() {
-//   Screen(144)
-// }
-
-document.addEventListener('DOMContentLoaded', app, false);
+app();
