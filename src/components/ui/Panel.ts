@@ -4,7 +4,7 @@ import { createElement } from "./useGuiManager";
 
 const Panel = (buttons: HolographicButton[]) => createElement(PlanePanel, {
   name: 'panel',
-  position: new Vector3(0, 0, 20),
+  position: new Vector3(0, 0, 3),
   margin: 0,
   rows: 9,
   columns: 16,

@@ -9,10 +9,12 @@ export function createScene(): Scene {
   scene.createDefaultXRExperienceAsync();  
 
   scene.createDefaultCameraOrLight(true, true, true);
+
+  console.log(process.env.APP_DEBUG_LAYER || false);
   
-  if (process.env.APP_DEBUG_LAYER || false) {
-    scene.debugLayer.show();
-  }
+  // if (process.env.APP_DEBUG_LAYER || false) {
+  //   scene.debugLayer.show();
+  // }
 
   return scene;
 }

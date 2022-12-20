@@ -1,6 +1,3 @@
-import "@babylonjs/core/Debug/debugLayer";
-import "@babylonjs/inspector";
-
 import Screen from "./components/ui/Screen";
 
 import { addActiveScene } from "./actions/scenesActions";
@@ -8,6 +5,14 @@ import store, { RootState } from './appStore';
 import useEngine from "./context/useEngine";
 import { createScene } from "./context/useScene";
 
+import "@babylonjs/loaders/glTF";
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register(
+    new URL('./service-worker.ts', import.meta.url),
+    { type: "module" }
+  );
+}
 
 function app() {
   const engine = useEngine();
@@ -28,7 +33,8 @@ function app() {
       Screen(144);
     });
 
-    //Remove the subscriber by adding
+    //Remove the subscriber by readding the subscriber
+    //Check the implementation;
     store.subscribe(subscriber);
   };
 
@@ -37,6 +43,10 @@ function app() {
   engine.runRenderLoop(() => {
     scene.render();
   });
+
+  window.onresize = () => {
+    engine.resize();
+  }
 }
 
 app();
