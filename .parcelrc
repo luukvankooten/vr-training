@@ -1,7 +1,7 @@
 {
   "extends": [
-    "@parcel/config-default"
-    // ,"parcel-config-pwa-manifest"
+    "@parcel/config-default",
+    "parcel-config-pwa-manifest"
   ],
   "validators": {
     "*.{ts,tsx}": ["@parcel/validator-typescript"]
