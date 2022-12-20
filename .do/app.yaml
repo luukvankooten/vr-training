@@ -1,0 +1,10 @@
+name: vr-training
+static_sites:
+- name: vr-training
+  github:
+    branch: feature/parcel
+    deploy_on_push: false
+    repo: luukvankooten/vr-training
+  build_command: npm install & npm run build
+  routes:
+  - path: /
