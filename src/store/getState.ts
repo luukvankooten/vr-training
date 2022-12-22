@@ -1,3 +1,4 @@
+//The subscribe function
 import { SubscribeFunc } from "./subscriber";
 
 export type GetStateFunc<T> = () => Readonly<T>

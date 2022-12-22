@@ -1,6 +1,6 @@
+//Dispatch is the way to update the store
 import { GetStateFunc } from "./getState";
 import { Listener } from "./subscriber";
-
 
 export interface Action<T = any> {
   action: T

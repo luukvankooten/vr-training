@@ -1,3 +1,4 @@
+//The selectors to get the right information out of the store.
 import { RootState } from "../appStore";
 
 export function getActiveScene(store: RootState) {

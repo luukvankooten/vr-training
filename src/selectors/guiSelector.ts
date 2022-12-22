@@ -1,3 +1,4 @@
+//Selectors to extract the right information out of the store
 import { RootState } from "../appStore";
 
 export function get3DManager(state: RootState) {

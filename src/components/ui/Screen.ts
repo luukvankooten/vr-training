@@ -1,3 +1,4 @@
+//The screen which the users sees.
 import Holder from "./Holder";
 import Panel from "./Panel";
 import ButtonArray from "./Button";

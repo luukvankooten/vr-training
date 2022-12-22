@@ -1,3 +1,4 @@
+//Create the combine reducers for speration of concers
 import combineReducers from "../store/combineReducers";
 import guiReducer from "./guiReducer";
 import scenesReducer from "./scenesReducer";

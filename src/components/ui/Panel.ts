@@ -1,3 +1,4 @@
+//The panel where the buttons lives.
 import { Vector3 } from "@babylonjs/core";
 import { HolographicButton, PlanePanel } from "@babylonjs/gui";
 import { createElement } from "./useGuiManager";

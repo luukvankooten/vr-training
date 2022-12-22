@@ -1,3 +1,4 @@
+//All related to the buttons
 import { Vector3 } from "@babylonjs/core";
 import { HolographicButton, TextBlock } from "@babylonjs/gui";
 import random from "random";

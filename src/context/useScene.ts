@@ -1,3 +1,4 @@
+//Create a scene.
 import { Scene } from "@babylonjs/core";
 import useEngine from "./useEngine";
 

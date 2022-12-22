@@ -1,3 +1,4 @@
+//Use a selector detected a change.
 import store, { RootState } from "../appStore";
 
 type SelectorFunc<T> = (state: RootState) => T

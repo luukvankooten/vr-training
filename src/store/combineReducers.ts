@@ -1,3 +1,4 @@
+//Combine reducers is the way to create different 
 import { Action, Reducer } from "./dispatch";
 
 type Reducers<T extends Object> = {
@@ -18,7 +19,6 @@ export default function combineReducers<T extends {}, R extends T>(reducers: Red
       const reduced = value(keyState, payload);
 
       newState[key] = reduced;
-
     });
 
     return newState as R;

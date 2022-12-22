@@ -1,3 +1,7 @@
+//Services worker are for offline applications
+//See the documentation for service workers: 
+// https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API
+//All of this is handeld by parcel. 
 import { manifest, version } from '@parcel/service-worker';
 
 declare var self: ServiceWorkerGlobalScope;

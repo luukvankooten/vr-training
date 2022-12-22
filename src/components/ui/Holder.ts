@@ -1,3 +1,4 @@
+//The background.
 import { Vector3 } from "@babylonjs/core";
 import { PlanePanel } from "@babylonjs/gui";
 import useBackPlate from "./useBackPlate";

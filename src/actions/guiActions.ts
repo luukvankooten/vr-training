@@ -1,3 +1,4 @@
+//Create the actions for Gui 3d managers
 import { Scene } from "@babylonjs/core";
 import { GUI3DManager } from "@babylonjs/gui";
 

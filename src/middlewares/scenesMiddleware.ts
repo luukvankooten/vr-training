@@ -1,3 +1,5 @@
+//The middleware if the add active scene is added.
+//Add the gui 3d manager
 import Actions from "../actions";
 import { addGui3DManager } from "../actions/guiActions";
 import { ADD_ACTIVE } from "../actions/scenesActions";

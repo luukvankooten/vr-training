@@ -1,3 +1,4 @@
+//the reducers for the scenes.
 import { Scene } from "@babylonjs/core";
 import ScenesActions, { addScene, ADD_ACTIVE, ADD_SCENE, setActiveScene, SET_ACTIVE } from "../actions/scenesActions";
 

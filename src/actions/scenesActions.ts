@@ -1,3 +1,4 @@
+//the scene actions
 import { Scene } from "@babylonjs/core";
 
 export const ADD_SCENE = 'SCENES_ADD_SCENE';

@@ -1,3 +1,4 @@
+//The reducers for the 3d manager
 import { GUI3DManager } from "@babylonjs/gui"
 import GuiActions, { ADD_GUI_3D_MANAGER } from "../actions/guiActions"
 

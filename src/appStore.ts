@@ -1,3 +1,5 @@
+//Configure the store.
+//In the appStore is where the applications state lives.
 import Actions from './actions';
 import scenesMiddleware from './middlewares/scenesMiddleware';
 import createRootReducer from './reducers';

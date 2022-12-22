@@ -1,3 +1,5 @@
+//The main entry for the application
+//This is the starting point for the application
 import Screen from "./components/ui/Screen";
 
 import { addActiveScene } from "./actions/scenesActions";
